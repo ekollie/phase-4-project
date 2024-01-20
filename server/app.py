@@ -3,11 +3,13 @@ from flask import Flask, request, make_response
 from flask_restful import Api, Resource
 
 from config import app, db, api
-from models import *
+from models import db
+
+
 
 @app.route("/")
 def index():
-    return "<h1> Project Server </h1>"
+    return "<h1> Server </h1>"
 
 
 
