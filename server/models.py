@@ -46,10 +46,10 @@ class Compliments(db.Model, SerializerMixin):
         'User', back_populates='compliments_received')
 
     heart = db.relationship(
-        'Heart', back_populates='compliments')
+        'Hearts', back_populates='compliments')
 
 
-class Heart(db.Model, SerializerMixin):
+class Hearts(db.Model, SerializerMixin):
     __tablename__ = 'hearts'
 
     heart_id = db.Column(db.Integer, primary_key=True)
