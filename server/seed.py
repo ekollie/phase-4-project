@@ -1,5 +1,7 @@
 from app import app
-from models import db, Users, Compliments, Hearts
+#from models import db, Users, Compliments, Hearts
+
+from models import db, Users
 
 
 if __name__ == "__main__":
@@ -21,7 +23,7 @@ if __name__ == "__main__":
 
         db.session.add_all([user_1, user_2, user_3, user_4])
         db.session.commit()
-
+        '''
         print("Creating complments...")
         compliment_1 = Compliments(compliment_text="test compliment 1", sender=user_1, receiver=user_2)
         compliment_2 = Compliments(compliment_text="test compliment 2", sender=user_2, receiver=user_3)
@@ -38,7 +40,7 @@ if __name__ == "__main__":
 
         db.session.add_all([heart_1, heart_2, heart_3])
         db.session.commit()
-
+        '''
         print("Seeding complete...")
 
 
