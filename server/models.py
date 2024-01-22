@@ -59,7 +59,6 @@ class Hearts(db.Model, SerializerMixin):
     __tablename__ = 'hearts'
 
     heart_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     compliment_id = db.Column(
         db.Integer, db.ForeignKey('compliments.compliment_id'))
 

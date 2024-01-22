@@ -40,9 +40,9 @@ if __name__ == "__main__":
         db.session.commit()
 
         print("Creating hearts...")
-        heart_1 = Hearts(user_id=1, compliment_id=1)
-        heart_2 = Hearts(user_id=2, compliment_id=2)
-        heart_3 = Hearts(user_id=3, compliment_id=3)
+        heart_1 = Hearts(compliments=compliment_1)
+        heart_2 = Hearts(compliments=compliment_2)
+        heart_3 = Hearts(compliments=compliment_3)
 
         db.session.add_all([heart_1, heart_2, heart_3])
         db.session.commit()
