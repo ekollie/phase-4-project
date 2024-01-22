@@ -19,7 +19,7 @@ class Compliments(db.Model, SerializerMixin):
     sender_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     receiver_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
-    public = db.Column(db.Boolean)
+    public = db.Column(db.Boolean, default=False)
 
     # relationships
     sender = db.relationship(
@@ -28,12 +28,26 @@ class Compliments(db.Model, SerializerMixin):
     receiver = db.relationship(
         'Users', back_populates='compliments_received', foreign_keys=[receiver_id])
 
-    heart = db.relationship(
-        'Hearts', back_populates='compliments')
+    serialize_rules = (
+        "-sender.compliments_sent",
+        "-receiver.compliments_received"
+        "-sender.compliments_received",
+        "-receiver.compliments_sent"
+    )
 
-    serialize_rules = ("-sender.compliments",
-                       "-receiver.compliments",
-                       "-heart.compliments",)
+    @validates('compliment_text')
+    def non_null(self, key, value):
+        if value:
+            return value
+        else:
+            raise ValueError
+
+    @validates('sender_id', 'receiver_id')
+    def non_null_number(self, key, value):
+        if value and isinstance(value, int):
+            return value
+        else:
+            raise ValueError("Invalid value for '{}'".format(key))
 
 
 class Users(db.Model, SerializerMixin):
@@ -51,18 +65,27 @@ class Users(db.Model, SerializerMixin):
     compliments_received = db.relationship(
         'Compliments', back_populates='receiver', foreign_keys=[Compliments.receiver_id])
 
-    serialize_rules = ("-compliments_sent.users",
-                       "-compliments_received.users",)
+    hearts = db.relationship(
+        'Hearts', back_populates='user')
+
+    serialize_rules = (
+        "-compliments_sent.sender",
+        "-compliments_received.receiver",
+        "-hearts.user",
+
+    )
 
 
 class Hearts(db.Model, SerializerMixin):
     __tablename__ = 'hearts'
 
     heart_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     compliment_id = db.Column(
         db.Integer, db.ForeignKey('compliments.compliment_id'))
 
-    compliments = db.relationship(
-        'Compliments', back_populates='heart')
+    user = db.relationship(
+        'Users', back_populates='hearts'
+    )
 
-    serialize_rules = ("-compliments.hearts",)
+    serialize_rules = ("-user.hearts",)
