@@ -10,25 +10,6 @@ metadata = MetaData(naming_convention={
 db = SQLAlchemy(metadata=metadata)
 
 
-class Users(db.Model, SerializerMixin):
-    __tablename__ = 'users'
-
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    email = db.Column(db.String)
-    position = db.Column(db.String)
-
-    # relationships
-    compliments_sent = db.relationship(
-        'Compliments', back_populates='sender', foreign_keys='compliments.sender_id')
-
-    compliments_received = db.relationship(
-        'Compliments', back_populates='receiver', foreign_keys='compliments.receiver_id')
-
-    serialize_rules = ("-compliments_sent.users",
-                       "-compliments_received.users",)
-
-
 class Compliments(db.Model, SerializerMixin):
     __tablename__ = 'compliments'
 
@@ -42,10 +23,10 @@ class Compliments(db.Model, SerializerMixin):
 
     # relationships
     sender = db.relationship(
-        'Users', back_populates='compliments_sent')
+        'Users', back_populates='compliments_sent', foreign_keys=[sender_id])
 
     receiver = db.relationship(
-        'Users', back_populates='compliments_received')
+        'Users', back_populates='compliments_received', foreign_keys=[receiver_id])
 
     heart = db.relationship(
         'Hearts', back_populates='compliments')
@@ -53,6 +34,25 @@ class Compliments(db.Model, SerializerMixin):
     serialize_rules = ("-sender.compliments",
                        "-receiver.compliments",
                        "-heart.compliments",)
+
+
+class Users(db.Model, SerializerMixin):
+    __tablename__ = 'users'
+
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String)
+    email = db.Column(db.String)
+    position = db.Column(db.String)
+
+    # relationships
+    compliments_sent = db.relationship(
+        'Compliments', back_populates='sender', foreign_keys=[Compliments.sender_id])
+
+    compliments_received = db.relationship(
+        'Compliments', back_populates='receiver', foreign_keys=[Compliments.receiver_id])
+
+    serialize_rules = ("-compliments_sent.users",
+                       "-compliments_received.users",)
 
 
 class Hearts(db.Model, SerializerMixin):

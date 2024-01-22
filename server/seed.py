@@ -27,13 +27,13 @@ if __name__ == "__main__":
 
         print("Creating complments...")
         compliment_1 = Compliments(
-            compliment_text="test compliment 1", sender=user_1, public=True, receiver_id=user_2)
+            compliment_text="test compliment 1", sender=user_1, public=True, receiver=user_2)
         compliment_2 = Compliments(
-            compliment_text="test compliment 2", sender=user_2, public=False, receiver_id=user_2)
+            compliment_text="test compliment 2", sender=user_2, public=False, receiver=user_2)
         compliment_3 = Compliments(
-            compliment_text="test compliment 3", sender=user_1, public=True, receiver_id=user_2)
+            compliment_text="test compliment 3", sender=user_1, public=True, receiver=user_2)
         compliment_4 = Compliments(
-            compliment_text="test compliment 4", sender=user_4, public=False, receiver_id=user_2)
+            compliment_text="test compliment 4", sender=user_4, public=False, receiver=user_2)
 
         db.session.add_all([compliment_1, compliment_2,
                            compliment_3, compliment_4])
