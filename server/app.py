@@ -245,5 +245,131 @@ def hearts_by_id(id):
     return response
 
 
+# FULL CRUD FOR USERS
+
+# GET ALL USERS
+@app.route('/users', methods = ['GET'])
+def all_users():
+    try:
+        users = Users.query.all()
+        users_dict = [user.to_dict(rules = ('-compliments_sent', '-compliments_received', '-hearts')) for user in users]
+
+        response = make_response(
+            users_dict,
+            200
+        )
+    except ValueError:
+        response = make_response(
+            {"error": "objects not found"},
+            400
+        )
+    
+    return response
+
+@app.route('/users/<int:id>', methods = ['GET'])
+def get_user_by_id(id):
+    user = Users.query.filter(Users.user_id == id).first()
+
+    if user:
+        response = make_response(
+            user.to_dict(rules = ('-compliments_received', '-compliments_sent')),
+            200
+        )
+    
+    else:
+        response = make_response(
+            {"error": "user not found"},
+            404
+        )
+    
+    return response
+    
+
+@app.route('/users/<int:id>', methods = ['DELETE'])
+def delete_by_user_id(id):
+    user = Users.query.filter(Users.user_id == id).first()
+
+    if user:
+        all_associated_users = Compliments.query.filter((Compliments.sender_id == id) | (Compliments.receiver_id == id)).all()
+        for all_associated in all_associated_users:
+            db.session.delete(all_associated)
+        
+        db.session.delete(user)
+        db.session.commit()
+
+        response = make_response(
+            {},
+            204
+        )
+    
+    else:
+        response = make_response(
+            {"error": "user not found"},
+            404
+        )
+    
+    return response
+
+@app.route('/users', methods = ['POST'])
+def post_new_user():
+    try:
+        form_data = request.get_json()
+
+        new_user = Users(
+            username = form_data['username'],
+            email = form_data['email'],
+            position = form_data['position'],
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        response = make_response(
+            new_user.to_dict(),
+            201
+        )
+
+    except ValueError:
+        response = make_response(
+            {"error": "new user not posted"},
+            400
+        )
+        
+    return response
+
+
+@app.route('/users/<int:id>', methods=['PATCH'])
+def update_user(id):
+    user = Users.query.filter(Users.user_id == id).first()
+
+    if user:
+        try:
+            form_data = request.get_json()
+
+            for attr in form_data:
+                setattr(user, attr, form_data[attr])
+            
+            db.session.commit()
+
+            response = make_response(
+                user.to_dict(),
+                201
+            )
+        
+        except ValueError:
+            response = make_response(
+                {"error": "update did not work"},
+                400
+            )
+
+    else:
+        response = make_response(
+            {"error": "user object not found"},
+            404
+        )
+    
+    return response
+
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
