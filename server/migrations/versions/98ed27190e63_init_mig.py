@@ -1,8 +1,8 @@
-"""initial model
+"""init mig
 
-Revision ID: 021c62fda1d4
+Revision ID: 98ed27190e63
 Revises: 
-Create Date: 2024-01-21 11:07:39.673917
+Create Date: 2024-01-22 11:54:45.486708
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '021c62fda1d4'
+revision = '98ed27190e63'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,9 +30,9 @@ def upgrade():
     sa.Column('compliment_text', sa.String(), nullable=True),
     sa.Column('date_sent', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('sender_id', sa.Integer(), nullable=True),
-    sa.Column('reciever_id', sa.Integer(), nullable=True),
+    sa.Column('receiver_id', sa.Integer(), nullable=True),
     sa.Column('public', sa.Boolean(), nullable=True),
-    sa.ForeignKeyConstraint(['reciever_id'], ['users.user_id'], name=op.f('fk_compliments_reciever_id_users')),
+    sa.ForeignKeyConstraint(['receiver_id'], ['users.user_id'], name=op.f('fk_compliments_receiver_id_users')),
     sa.ForeignKeyConstraint(['sender_id'], ['users.user_id'], name=op.f('fk_compliments_sender_id_users')),
     sa.PrimaryKeyConstraint('compliment_id')
     )
