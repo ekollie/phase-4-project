@@ -34,7 +34,7 @@ class Compliments(db.Model, SerializerMixin):
     date_sent = db.Column(db.DateTime, server_default=db.func.now())
 
     sender_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    reciever_id = db.Column(db.Integer,  db.ForeignKey('users.user_id'))
+    receiver_id = db.Column(db.Integer,  db.ForeignKey('users.user_id'))
 
     public = db.Column(db.Boolean)
 
