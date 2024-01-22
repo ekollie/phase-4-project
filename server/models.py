@@ -32,7 +32,9 @@ class Compliments(db.Model, SerializerMixin):
         "-sender.compliments_sent",
         "-receiver.compliments_received"
         "-sender.compliments_received",
-        "-receiver.compliments_sent"
+        "-receiver.compliments_sent",
+        "-sender.hearts",
+        "-receiver.hearts",
     )
 
     @validates('compliment_text')
@@ -72,6 +74,8 @@ class Users(db.Model, SerializerMixin):
         "-compliments_sent.sender",
         "-compliments_received.receiver",
         "-hearts.user",
+        "-compliments_sent.receiver",
+        "-compliments_received.sender",
 
     )
 
@@ -88,4 +92,8 @@ class Hearts(db.Model, SerializerMixin):
         'Users', back_populates='hearts'
     )
 
-    serialize_rules = ("-user.hearts",)
+    serialize_rules = ("-user.hearts",
+                       '-user.compliments_sent',
+                       '-user.compliments_received',
+                       '-hearts.sender',
+                       '-hearts.receiver')

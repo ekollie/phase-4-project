@@ -34,7 +34,7 @@ def compliments():
     if all_compliments:
         if request.method == 'GET':
             response = make_response(
-                [compliment.to_dict(rules=('-receiver_id', '-sender_id',))
+                [compliment.to_dict(rules=('-receiver_id', '-sender_id', '-receiver.compliments_received', '-sender.compliments_received',))
                  for compliment in all_compliments]
             )
             pass
@@ -82,7 +82,7 @@ def compliments_by_id(id):
         if request.method == 'GET':
             response = make_response(
                 compliment_by_id.to_dict(
-                    rules=('-receiver_id', '-sender_id',)),
+                    rules=('-receiver_id', '-sender_id', '-receiver.compliments_received', '-sender.compliments_received',)),
                 200
             )
 
@@ -147,7 +147,7 @@ def hearts():
     if all_hearts:
         if request.method == 'GET':
             response = make_response(
-                [heart.to_dict(rules=('-compliment_id',))
+                [heart.to_dict()
                  for heart in all_hearts]
             )
             pass
@@ -156,7 +156,8 @@ def hearts():
                 new_heart_form = request.get_json()
 
                 new_heart = Hearts(
-                    compliment_id=new_heart_form.get('compliment_id')
+                    compliment_id=new_heart_form.get('compliment_id'),
+                    user_id=new_heart_form.get('user_id')
                 )
 
                 db.session.add(new_heart)
@@ -192,8 +193,7 @@ def hearts_by_id(id):
     if heart_by_id:
         if request.method == 'GET':
             response = make_response(
-                heart_by_id.to_dict(
-                    rules=('-compliment_id',)),
+                heart_by_id.to_dict(),
                 200
             )
 
