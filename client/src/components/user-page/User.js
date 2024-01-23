@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -8,6 +8,7 @@ function User() {
   const { currentUser, user } = state;
   const [compliments, setCompliments] = useState([]);
   const [refreshPage, setRefreshPage] = useState([]);
+  const navigate = useNavigate();
   let currentDate = new Date().toJSON().slice(0, 10);
 
   useEffect(() => {
@@ -66,6 +67,16 @@ function User() {
     <div>
       <div>
         <h1>{user.username}</h1>
+        <button
+          onClick={() =>
+            navigate(`/main`, {
+              state: { currentUser },
+            })
+          }
+        >
+          Back
+        </button>
+        <br />
         <p>Position: {user.position}</p>
         <p>Email: {user.email}</p>
       </div>

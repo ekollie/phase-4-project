@@ -10,6 +10,7 @@ function Main() {
   const { currentUser } = state;
   const [compliments, setCompliments] = useState([]);
   const [refreshPage, setRefreshPage] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Fetching compliments...");
@@ -31,8 +32,17 @@ function Main() {
   return (
     <div>
       <h1> Hello, {currentUser.username}</h1>
-      
+      <button
+        onClick={() =>
+          navigate(`/profile`, {
+            state: { currentUser },
+          })
+        }
+      >
+        Account
+      </button>
       <div>
+        <br />
         <UsersList compliments={compliments} currentUser={currentUser} />
         <br />
       </div>

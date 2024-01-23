@@ -11,7 +11,7 @@ const routes = [
     children: [
       { path: "/", element: <Login /> },
       { path: "/main", element: <Main /> },
-      // { path: "/Profile", element: <Profile /> },
+      { path: "/profile", element: <Profile /> },
       {
         path: "/users/:userId/",
         element: <User />,
