@@ -35,7 +35,7 @@ function Main() {
       <button
         onClick={() =>
           navigate(`/profile`, {
-            state: { currentUser },
+            state: { currentUser, compliments },
           })
         }
       >

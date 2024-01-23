@@ -99,5 +99,40 @@
         "username": "NickS"
       }
     }
+  ],
+  "hearts": [
+    {
+      "compliment_id": 1,
+      "heart_id": 1,
+      "user": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      },
+      "user_id": 2
+    },
+    {
+      "compliment_id": 3,
+      "heart_id": 2,
+      "user": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      },
+      "user_id": 2
+    },
+    {
+      "compliment_id": 1,
+      "heart_id": 3,
+      "user": {
+        "email": "test@gmail.com",
+        "position": "engineer3",
+        "user_id": 3,
+        "username": "ElijahK"
+      },
+      "user_id": 3
+    }
   ]
 }
