@@ -1,9 +1,84 @@
 {
   "users": [
     {
-      "id": 1,
-      "email": "jdoe@gmail.com",
-      "password": "password"
+      "email": "test@gmail.com",
+      "position": "engineer1",
+      "user_id": 1,
+      "username": "DorahelyS"
+    },
+    {
+      "email": "test@gmail.com",
+      "position": "engineer2",
+      "user_id": 2,
+      "username": "NickS"
+    },
+    {
+      "email": "test@gmail.com",
+      "position": "engineer3",
+      "user_id": 3,
+      "username": "ElijahK"
+    },
+    {
+      "email": "TEST EMAIL",
+      "position": "TEST POSITION",
+      "user_id": 4,
+      "username": "TEST TEST"
+    }
+  ],
+  "compliments": [
+    {
+      "compliment_id": 1,
+      "compliment_text": "test compliment 1",
+      "date_sent": "2024-01-22 22:32:52",
+      "public": true,
+      "receiver": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer1",
+        "user_id": 1,
+        "username": "DorahelyS"
+      }
+    },
+    {
+      "compliment_id": 2,
+      "compliment_text": "test compliment 2",
+      "date_sent": "2024-01-22 22:32:52",
+      "public": false,
+      "receiver": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      }
+    },
+    {
+      "compliment_id": 3,
+      "compliment_text": "test compliment 3",
+      "date_sent": "2024-01-22 22:32:52",
+      "public": true,
+      "receiver": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer1",
+        "user_id": 1,
+        "username": "DorahelyS"
+      }
     }
   ]
 }

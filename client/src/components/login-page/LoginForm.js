@@ -1,52 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 
 function LoginForm() {
-  const [refreshPage, setRefreshPage] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-
-  const url = useEffect(() => {
-    console.log("Fetching users...");
-    fetch("/users")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error("Something went wrong");
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [refreshPage]);
+  const navigate = useNavigate();
 
   const formSchema = yup.object().shape({
-    email: yup.string().email("Invalid email").required("Must enter email"),
-    password: yup.string().required("Must enter a name"),
+    username: yup.string().required("Must enter a username"),
+    position: yup.string().required("Must enter a position"),
   });
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      username: "",
+      position: "",
     },
     validationSchema: formSchema,
     onSubmit: () => {
       fetch("/users")
         .then((res) => {
           if (res.ok) {
-            setRefreshPage(!refreshPage);
             return res.json();
           }
           throw new Error("Something went wrong");
         })
         .then((data) => {
-          console.log(data);
-          setCurrentUser(() => data);
-          console.log(currentUser);
+          data.forEach((currentUser) => {
+            if (currentUser.username === formik.values.username) {
+              navigate(`/main`, {
+                state: { currentUser },
+              });
+            }
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -56,48 +42,29 @@ function LoginForm() {
 
   return (
     <div>
-      <h1>Login form</h1>
+      <h2>Sign in</h2>
       <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
-        <label htmlFor="email">Email Address</label>
+        <label htmlFor="username">Username</label>
         <br />
         <input
-          id="email"
-          name="email"
+          id="username"
+          name="username"
           onChange={formik.handleChange}
-          value={formik.values.email}
+          value={formik.values.username}
         />
-        <p style={{ color: "red" }}> {formik.errors.email}</p>
-        <label htmlFor="password">Password</label>
+        <p style={{ color: "red" }}> {formik.errors.username}</p>
+        <label htmlFor="position">Position</label>
         <br />
 
         <input
-          id="password"
-          name="password"
+          id="position"
+          name="position"
           onChange={formik.handleChange}
-          value={formik.values.password}
+          value={formik.values.position}
         />
+        <p style={{ color: "red" }}> {formik.errors.position}</p>
         <button type="submit">Submit</button>
       </form>
-      <table style={{ padding: "15px" }}>
-        <tbody>
-          <tr>
-            <th>email</th>
-            <th>password</th>
-          </tr>
-          {currentUser === undefined ? (
-            <p>Loading</p>
-          ) : (
-            currentUser.map((currentUser, i) => (
-              <>
-                <tr key={i}>
-                  <td>{currentUser.email}</td>
-                  <td>{currentUser.password}</td>
-                </tr>
-              </>
-            ))
-          )}
-        </tbody>
-      </table>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import App from "./components/App";
 import Login from "./components/login-page/Login";
 import Main from "./components/main-page/Main";
-import Profile from "./components/Profile";
+import Profile from "./profile-page/Profile";
 import User from "./components/user-page/User";
 
 const routes = [
@@ -10,12 +10,12 @@ const routes = [
     element: <App />,
     children: [
       { path: "/", element: <Login /> },
-      // { path: "/Main", element: <Main /> },
+      { path: "/main", element: <Main /> },
       // { path: "/Profile", element: <Profile /> },
-      // {
-      //   path: "/User/:userId/",
-      //   element: <User />,
-      // },
+      {
+        path: "/users/:userId/",
+        element: <User />,
+      },
     ],
   },
 ];
