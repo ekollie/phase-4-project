@@ -5,7 +5,7 @@ import * as yup from "yup";
 
 function User() {
   const { state } = useLocation();
-  const { currentUser, user } = state;
+  const { currentUser, user, hearts} = state;
   const [compliments, setCompliments] = useState([]);
   const [refreshPage, setRefreshPage] = useState([]);
   const navigate = useNavigate();

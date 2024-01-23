@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserCard from "./UserCard";
 import { ref } from "yup";
 
-function UsersList({ compliments, currentUser }) {
+function UsersList({ compliments, currentUser, hearts }) {
   const [users, setUsers] = useState([]);
   const [refreshPage, setRefreshPage] = useState(false);
 
@@ -34,6 +34,7 @@ function UsersList({ compliments, currentUser }) {
                   user={user}
                   compliments={compliments}
                   currentUser={currentUser}
+                  hearts = {hearts}
 
                 />
                 <br />

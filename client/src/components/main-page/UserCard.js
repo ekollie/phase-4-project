@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function UserCard({ currentUser, user }) {
+function UserCard({ currentUser, user, hearts }) {
   const navigate = useNavigate();
   return (
     <div>
@@ -11,7 +11,7 @@ function UserCard({ currentUser, user }) {
       <button
         onClick={() =>
           navigate(`/users/${user.user_id}`, {
-            state: { currentUser, user },
+            state: { currentUser, user, hearts },
           })
         }
       >

@@ -9,6 +9,7 @@ function Main() {
   const { state } = useLocation();
   const { currentUser } = state;
   const [compliments, setCompliments] = useState([]);
+  const [hearts, setHearts] = useState([])
   const [refreshPage, setRefreshPage] = useState(false);
   const navigate = useNavigate();
 
@@ -27,6 +28,23 @@ function Main() {
       .catch((error) => {
         console.log(error);
       });
+
+    console.log("Fetching all hearts...");
+    fetch("/hearts")
+      .then((response) => {
+        if (response.ok){
+          return response.json();
+        }
+        throw new Error("Something went wrong");
+      })
+      .then((hearts) => {
+        //console.log(hearts);
+        return  setHearts(hearts);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+
   }, [refreshPage]);
 
   return (
@@ -43,7 +61,7 @@ function Main() {
       </button>
       <div>
         <br />
-        <UsersList compliments={compliments} currentUser={currentUser} />
+        <UsersList compliments={compliments} currentUser={currentUser} hearts={hearts} />
         <br />
       </div>
       <div>
