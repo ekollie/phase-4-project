@@ -1,0 +1,14 @@
+currentUser originates: LoginForm. passed into all other container states
+
+compliments originates: Main. passed into UsersList, Profile, ReceivedCompliments
+
+users originates: UsersList. passed into UserCard, UserPage
+
+To do:
+Integrate heart into compliments (display number?)
+
+Public toggle on compliments (from user profile?)
+
+Bio info on profile page (editable?)
+
+signout button
