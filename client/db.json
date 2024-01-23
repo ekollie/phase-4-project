@@ -79,6 +79,25 @@
         "user_id": 1,
         "username": "DorahelyS"
       }
+    },
+    {
+      "id": 1705992641722,
+      "compliment_id": 1705992641722,
+      "compliment_text": "Testing compliment",
+      "date_sent": "2024-01-23",
+      "public": false,
+      "receiver": {
+        "email": "TEST EMAIL",
+        "position": "TEST POSITION",
+        "user_id": 4,
+        "username": "TEST TEST"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      }
     }
   ]
 }

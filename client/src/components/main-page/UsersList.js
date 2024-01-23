@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserCard from "./UserCard";
 import { ref } from "yup";
 
-function UsersList() {
+function UsersList({ compliments, currentUser }) {
   const [users, setUsers] = useState([]);
   const [refreshPage, setRefreshPage] = useState(false);
 
@@ -25,12 +25,22 @@ function UsersList() {
   return (
     <div>
       <ul>
-        {users.map((user) => (
-          <li>
-            <UserCard key={user.user_id} user={user} />
-            <br />
-          </li>
-        ))}
+        {users.map((user) => {
+          if (user.user_id != currentUser.user_id) {
+            return (
+              <li>
+                <UserCard
+                  key={user.user_id}
+                  user={user}
+                  compliments={compliments}
+                  currentUser={currentUser}
+
+                />
+                <br />
+              </li>
+            );
+          }
+        })}
       </ul>
     </div>
   );
