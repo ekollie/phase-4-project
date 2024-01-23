@@ -98,6 +98,25 @@
         "user_id": 2,
         "username": "NickS"
       }
+    },
+    {
+      "id": 1706043902893,
+      "compliment_id": 1706043902893,
+      "compliment_text": "Nick sent this compliment to Test Test",
+      "date_sent": "2024-01-23",
+      "public": false,
+      "receiver": {
+        "email": "TEST EMAIL",
+        "position": "TEST POSITION",
+        "user_id": 4,
+        "username": "TEST TEST"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      }
     }
   ],
   "hearts": [

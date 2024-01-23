@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import ComplimentsFromYou from "./ComplimentsFromYou";
 
 function User() {
   const { state } = useLocation();
-  const { currentUser, user, hearts} = state;
+  const { currentUser, user, hearts } = state;
   const [compliments, setCompliments] = useState([]);
   const [refreshPage, setRefreshPage] = useState([]);
   const navigate = useNavigate();
@@ -16,7 +17,29 @@ function User() {
     fetch("/compliments")
       .then((res) => res.json())
       .then((data) => {
-        setCompliments(data);
+        console.log(
+          data
+            .filter((compliment) => {
+              return (
+                compliment.sender.user_id === currentUser.user_id &&
+                compliment.receiver.user_id === user.user_id
+              );
+            })
+            .map((compliment) => {
+              let complimentHearts = hearts.filter((heart) => {
+                return compliment.compliment_id === heart.compliment_id;
+              });
+              return { compliment: complimentHearts };
+            })
+        );
+        setCompliments(() => {
+          return data.filter((compliment) => {
+            return (
+              compliment.sender.user_id === currentUser.user_id &&
+              compliment.receiver.user_id === user.user_id
+            );
+          });
+        });
       });
   }, [refreshPage]);
 
@@ -81,18 +104,8 @@ function User() {
         <p>Email: {user.email}</p>
       </div>
       <div>
-        <h3>Your compliments:</h3>
-        {compliments.map((compliment) => {
-          if (
-            user.user_id === compliment.receiver.user_id &&
-            currentUser.user_id === compliment.sender.user_id
-          ) {
-            return (
-              (<p>{compliment.date_sent}</p>),
-              (<p>{compliment.compliment_text}</p>)
-            );
-          }
-        })}
+        <h3>Compliments from you</h3>
+        <ComplimentsFromYou compliments={compliments} heart={hearts} />
       </div>
       <div>
         <h3>Public:</h3>
