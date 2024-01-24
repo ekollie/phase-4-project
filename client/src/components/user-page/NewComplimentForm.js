@@ -25,23 +25,25 @@ function NewComplimentForm({ user, currentUser, handleRefresh }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: Date.now(),
-          compliment_id: Date.now(),
+          // id: Date.now(),
+          // compliment_id: Date.now(),
           compliment_text: values.compliment_text,
-          date_sent: currentDate,
-          public: false,
-          receiver: {
-            email: user.email,
-            position: user.position,
-            user_id: user.user_id,
-            username: user.username,
-          },
-          sender: {
-            email: currentUser.email,
-            position: currentUser.position,
-            user_id: currentUser.user_id,
-            username: currentUser.username,
-          },
+          // date_sent: currentDate,
+          // public: false,
+          // receiver: {
+          //   email: user.email,
+          //   position: user.position,
+          //   user_id: user.user_id,
+          //   username: user.username,
+          // },
+          // sender: {
+          //   email: currentUser.email,
+          //   position: currentUser.position,
+          //   user_id: currentUser.user_id,
+          //   username: currentUser.username,
+          // },
+          sender_id: currentUser.user_id,
+          receiver_id: user.user_id,
         }),
       }).then((response) => {
         if (response.status == 200) {

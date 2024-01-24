@@ -7,7 +7,7 @@ function UsersList({ compliments, currentUser, hearts }) {
   const [refreshPage, setRefreshPage] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5555/users")
+    fetch("/users")
       .then((response) => {
         if (response.ok) {
           return response.json();

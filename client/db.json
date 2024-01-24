@@ -231,6 +231,18 @@
         "user_id": 3,
         "username": "ElijahK"
       }
+    },
+    {
+      "compliment_text": "This is a test compliment!",
+      "sender_id": 3,
+      "receiver_id": 4,
+      "id": 1706081827348
+    },
+    {
+      "compliment_text": "This is another test compliment",
+      "sender_id": 3,
+      "receiver_id": 4,
+      "id": 1706081827349
     }
   ],
   "hearts": [
