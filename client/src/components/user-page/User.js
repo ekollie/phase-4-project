@@ -9,6 +9,8 @@ function User() {
   const { currentUser, user, hearts } = state;
   const [compliments, setCompliments] = useState([]);
   const [refreshPage, setRefreshPage] = useState([]);
+  // adding state to keep track of heart likes that are public in each user's profile current user is checking out
+  //const [publicHearts, setPublicHearts] = useState([]);
   const navigate = useNavigate();
   let currentDate = new Date().toJSON().slice(0, 10);
 
@@ -114,7 +116,14 @@ function User() {
             compliment.public &&
             compliment.receiver.user_id === user.user_id
           ) {
-            return <p>{compliment.compliment_text}</p>;
+            //updated to filter public hearts
+            let publicHearts = hearts.filter((heart) => heart.compliment_id === compliment.compliment_id).length;
+            return (
+              <div key={compliment.compliment_id}>
+                <p>{compliment.compliment_text}</p>
+                <p>Heart Count: {publicHearts}</p>
+            </div>
+            )
           }
         })}
       </div>
