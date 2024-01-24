@@ -3,16 +3,22 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 function NewComplimentForm({ user, currentUser, handleRefresh }) {
+  // Setting the current date in YYYY-MM-DD format
   let currentDate = new Date().toJSON().slice(0, 10);
+
+  // Defining the validation schema for the form using Yup
   const formSchema = yup.object().shape({
-    compliment_text: yup.string().required("Must not be blank").min("1"),
+    compliment_text: yup.string().required("Must not be blank").min(1),
   });
+
+  // Initializing Formik with configuration
   const formik = useFormik({
     initialValues: {
       compliment_text: "",
     },
     validationSchema: formSchema,
     onSubmit: (values, { resetForm }) => {
+      // Handling the form submission
       fetch("/compliments", {
         method: "POST",
         headers: {
@@ -42,6 +48,7 @@ function NewComplimentForm({ user, currentUser, handleRefresh }) {
           console.log("Successful post");
         }
       });
+      // Resetting the form and refreshing the parent component after submission
       resetForm();
       handleRefresh();
     },
@@ -49,6 +56,7 @@ function NewComplimentForm({ user, currentUser, handleRefresh }) {
 
   return (
     <div>
+      {/* Form for submitting new compliments */}
       <form onSubmit={formik.handleSubmit} style={{ margin: "15px" }}>
         <label htmlFor="compliment_text">
           Write a compliment to {user.username}!
@@ -59,9 +67,10 @@ function NewComplimentForm({ user, currentUser, handleRefresh }) {
           name="compliment_text"
           onChange={formik.handleChange}
           value={formik.values.compliment_text}
-          rows={"15"}
+          rows="15"
           style={{ width: "50%" }}
         />
+        {/* Displaying form validation error */}
         <p style={{ color: "red" }}>{formik.errors.compliment_text}</p>
         <button type="submit">Submit</button>
       </form>

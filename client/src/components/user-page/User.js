@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import ComplimentsFromYou from "./ComplimentsFromYou";
 import PublicCompliments from "./PublicCompliments";
 import NewComplimentForm from "./NewComplimentForm";

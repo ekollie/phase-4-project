@@ -6,17 +6,24 @@ import ReceivedCompliments from "./ReceivedCompliments";
 import { ref } from "yup";
 
 function Main() {
+  // Extracting the current user from the route state
   const { state } = useLocation();
   const { currentUser } = state;
+
+  // State variables for compliments, hearts, and page refresh indicator
   const [compliments, setCompliments] = useState([]);
   const [hearts, setHearts] = useState([]);
   const [refreshPage, setRefreshPage] = useState(false);
+
+  // Navigation hook to move between pages
   const navigate = useNavigate();
 
+  // Function to trigger a page refresh
   const handleRefresh = () => {
     setRefreshPage(!refreshPage);
   };
 
+  // Effect to fetch compliments and hearts data on component mount and page refresh
   useEffect(() => {
     console.log("Fetching compliments...");
     fetch("/compliments")
@@ -51,8 +58,11 @@ function Main() {
 
   return (
     <div>
+      {/* Displaying the current user's username and a Sign Out button */}
       <h1> Hello, {currentUser.username}</h1>
       <button onClick={() => navigate(`/`)}>Sign Out</button>
+
+      {/* Displaying the UsersList component */}
       <div>
         <br />
         <UsersList
@@ -62,6 +72,8 @@ function Main() {
         />
         <br />
       </div>
+
+      {/* Displaying the ReceivedCompliments component */}
       <div>
         <ReceivedCompliments
           compliments={compliments}

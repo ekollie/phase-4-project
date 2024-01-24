@@ -2,62 +2,49 @@ import React, { useEffect, useState } from "react";
 
 function Compliment({ currentUser, compliment, hearts, handleRefresh }) {
   const [likedCompliment, setLikedCompliment] = useState(false);
-  let currentDate = new Date().toJSON().slice(0, 10);
 
+  // Filters hearts related to this specific compliment
   const getComplimentHearts = () => {
-    return hearts.filter((heart) => {
-      return heart.compliment_id === compliment.compliment_id;
-    });
+    return hearts.filter(
+      (heart) => heart.compliment_id === compliment.compliment_id
+    );
   };
 
+  // Check if the current user has liked this compliment on component mount
   useEffect(() => {
     handleRefresh();
     getComplimentHearts().forEach((heart) => {
-      if (
-        heart.user_id === currentUser.user_id &&
-        heart.compliment_id === compliment.compliment_id
-      ) {
+      if (heart.user_id === currentUser.user_id) {
         setLikedCompliment(heart);
       }
     });
   }, []);
 
+  // Toggles the privacy of the compliment
   const handlePrivateToggle = () => {
     fetch(`/compliments/${compliment.compliment_id}`, {
       method: "PATCH",
-      body: JSON.stringify({
-        public: !compliment.public,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+      body: JSON.stringify({ public: !compliment.public }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    }).then((response) => response.json());
     handleRefresh();
   };
 
+  // Handles the liking or unliking of a compliment
   const handleLike = () => {
-    let complimentHeart = getComplimentHearts().filter((heart) => {
-      return heart.user_id === currentUser.user_id;
-    });
+    let complimentHeart = getComplimentHearts().find(
+      (heart) => heart.user_id === currentUser.user_id
+    );
     setLikedCompliment(!likedCompliment);
+
     if (likedCompliment) {
-      fetch(`/hearts/${complimentHeart[0].id}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error();
-        })
-        .then((json) => console.log(json))
-        .catch((error) => {
-          console.log("Something went wrong", error);
-        });
+      // If already liked, remove the like
+      fetch(`/hearts/${complimentHeart.id}`, { method: "DELETE" })
+        .then((response) => response.ok && response.json())
+        .catch((error) => console.log("Error removing like", error));
       setLikedCompliment(false);
     } else {
+      // If not liked, add a like
       fetch(`/hearts`, {
         method: "POST",
         body: JSON.stringify({
@@ -66,53 +53,38 @@ function Compliment({ currentUser, compliment, hearts, handleRefresh }) {
           heart_id: Date.now(),
           user_id: currentUser.user_id,
         }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+        headers: { "Content-type": "application/json; charset=UTF-8" },
       })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error();
-        })
-        .then((newHeart) => setLikedCompliment(true))
-        .catch((error) => {
-          console.log("Something went wrong", error);
-        });
+        .then((response) => response.ok && response.json())
+        .catch((error) => console.log("Error adding like", error));
+      setLikedCompliment(true);
     }
     handleRefresh();
-    console.log(likedCompliment);
   };
 
+  // Renders the privacy toggle buttons if the current user is the receiver
   const privacyButtons = () => {
     if (compliment.receiver.user_id === currentUser.user_id) {
       return (
-        <span>
-          {compliment.public ? (
-            <button onClick={() => handlePrivateToggle()}>public</button>
-          ) : (
-            <button onClick={() => handlePrivateToggle()}>private</button>
-          )}
-        </span>
+        <button onClick={handlePrivateToggle}>
+          {compliment.public ? "public" : "private"}
+        </button>
       );
     }
   };
+
+  // Renders the like button if the current user is not the sender
   const likeButton = () => {
     if (compliment.sender.user_id !== currentUser.user_id) {
       return (
-        <span>
-          {likedCompliment ? (
-            <button
-              style={{ color: "white", backgroundColor: "red" }}
-              onClick={() => handleLike()}
-            >
-              Like
-            </button>
-          ) : (
-            <button onClick={() => handleLike()}>Like</button>
-          )}
-        </span>
+        <button
+          style={
+            likedCompliment ? { color: "white", backgroundColor: "red" } : {}
+          }
+          onClick={handleLike}
+        >
+          Like
+        </button>
       );
     }
   };
@@ -124,7 +96,6 @@ function Compliment({ currentUser, compliment, hearts, handleRefresh }) {
       <span>| Hearts: {getComplimentHearts().length} |</span>
       {likeButton()}
       {privacyButtons()}
-      <br />
     </div>
   );
 }
