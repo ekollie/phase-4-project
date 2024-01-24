@@ -24,7 +24,15 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
         throw new Error("Something went wrong");
       })
       .then((hearts) => {
-        return setHearts(hearts);
+        hearts.forEach((heart) => {
+          if (
+            currentUser.user_id === heart.user_id &&
+            compliment.compliment_id === heart.compliment_id
+          ) {
+            return setLikedCompliment(true);
+          }
+        });
+        setHearts(hearts);
       })
       .catch((error) => {
         console.log(error);
