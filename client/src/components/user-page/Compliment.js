@@ -15,9 +15,7 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
     );
   };
 
-  // Check if the current user has liked this compliment on component mount and syncs public state
-  useEffect(() => {
-    console.log("Fetching all hearts...");
+  const getHearts = () => {
     fetch("/hearts")
       .then((response) => {
         if (response.ok) {
@@ -31,11 +29,12 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
       .catch((error) => {
         console.log(error);
       });
-    getComplimentHearts().forEach((heart) => {
-      if (heart.user_id === currentUser.user_id) {
-        setLikedCompliment(false);
-      }
-    });
+  };
+
+  // Check if the current user has liked this compliment on component mount and syncs public state
+  useEffect(() => {
+    console.log("Fetching all hearts...");
+    getHearts();
     setPublicToggle(compliment.public);
   }, []);
 
@@ -73,6 +72,7 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
           if (response.ok) {
             console.log("Setting liked compliments to false");
             setLikedCompliment(false);
+            getHearts();
           }
         })
         .catch((error) => console.log("Error removing like", error));
@@ -90,19 +90,7 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
           if (response.ok) {
             setLikedCompliment(true);
             console.log("Setting liked compliments to true");
-            fetch("/hearts")
-              .then((response) => {
-                if (response.ok) {
-                  return response.json();
-                }
-                throw new Error("Something went wrong");
-              })
-              .then((hearts) => {
-                return setHearts(hearts);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+            getHearts();
           }
         })
         .catch((error) => console.log("Error adding like", error));
