@@ -13,6 +13,10 @@ function Main() {
   const [refreshPage, setRefreshPage] = useState(false);
   const navigate = useNavigate();
 
+  const handleRefresh = () => {
+    setRefreshPage(!refreshPage);
+  };
+
   useEffect(() => {
     console.log("Fetching compliments...");
     fetch("/compliments")
@@ -38,7 +42,6 @@ function Main() {
         throw new Error("Something went wrong");
       })
       .then((hearts) => {
-        //console.log(hearts);
         return setHearts(hearts);
       })
       .catch((error) => {
@@ -60,12 +63,12 @@ function Main() {
         <br />
       </div>
       <div>
-        <h3>Received Compliments</h3>
-        {compliments.map((compliment) => {
-          if (compliment.receiver.user_id === currentUser.user_id) {
-            return <ReceivedCompliments compliment={compliment} />;
-          }
-        })}
+        <ReceivedCompliments
+          compliments={compliments}
+          currentUser={currentUser}
+          hearts={hearts}
+          handleRefresh={handleRefresh}
+        />
       </div>
     </div>
   );

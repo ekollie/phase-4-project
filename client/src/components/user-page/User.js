@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ComplimentsFromYou from "./ComplimentsFromYou";
+import PublicCompliments from "./PublicCompliments";
+import NewComplimentForm from "./NewComplimentForm";
 
 function User() {
   const { state } = useLocation();
@@ -12,7 +14,10 @@ function User() {
   // adding state to keep track of heart likes that are public in each user's profile current user is checking out
   //const [publicHearts, setPublicHearts] = useState([]);
   const navigate = useNavigate();
-  let currentDate = new Date().toJSON().slice(0, 10);
+
+  const handleRefresh = () => {
+    setRefreshPage(!refreshPage);
+  };
 
   useEffect(() => {
     console.log("Fetching compliments...");
@@ -20,19 +25,12 @@ function User() {
       .then((res) => res.json())
       .then((data) => {
         console.log(
-          data
-            .filter((compliment) => {
-              return (
-                compliment.sender.user_id === currentUser.user_id &&
-                compliment.receiver.user_id === user.user_id
-              );
-            })
-            .map((compliment) => {
-              let complimentHearts = hearts.filter((heart) => {
-                return compliment.compliment_id === heart.compliment_id;
-              });
-              return { compliment: complimentHearts };
-            })
+          data.filter((compliment) => {
+            return (
+              compliment.sender.user_id === currentUser.user_id &&
+              compliment.receiver.user_id === user.user_id
+            );
+          })
         );
         setCompliments(() => {
           return data.filter((compliment) => {
@@ -44,49 +42,6 @@ function User() {
         });
       });
   }, [refreshPage]);
-
-  const formSchema = yup.object().shape({
-    compliment_text: yup.string().required("Must not be blank").min("1"),
-  });
-  const formik = useFormik({
-    initialValues: {
-      compliment_text: "",
-    },
-    validationSchema: formSchema,
-    onSubmit: (values, { resetForm }) => {
-      fetch("/compliments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: Date.now(),
-          compliment_id: Date.now(),
-          compliment_text: values.compliment_text,
-          date_sent: currentDate,
-          public: false,
-          receiver: {
-            email: user.email,
-            position: user.position,
-            user_id: user.user_id,
-            username: user.username,
-          },
-          sender: {
-            email: currentUser.email,
-            position: currentUser.position,
-            user_id: currentUser.user_id,
-            username: currentUser.username,
-          },
-        }),
-      }).then((response) => {
-        if (response.status == 200) {
-          console.log("Successful post");
-        }
-      });
-      resetForm();
-      setRefreshPage(!refreshPage);
-    },
-  });
 
   return (
     <div>
@@ -106,44 +61,27 @@ function User() {
         <p>Email: {user.email}</p>
       </div>
       <div>
-        <h3>Compliments from you</h3>
-        <ComplimentsFromYou compliments={compliments} heart={hearts} />
+        <ComplimentsFromYou
+          currentUser={currentUser}
+          compliments={compliments}
+          hearts={hearts}
+          handleRefresh={handleRefresh}
+        />
       </div>
       <div>
-        <h3>Public:</h3>
-        {compliments.map((compliment) => {
-          if (
-            compliment.public &&
-            compliment.receiver.user_id === user.user_id
-          ) {
-            //updated to filter public hearts
-            let publicHearts = hearts.filter((heart) => heart.compliment_id === compliment.compliment_id).length;
-            return (
-              <div key={compliment.compliment_id}>
-                <p>{compliment.compliment_text}</p>
-                <p>Heart Count: {publicHearts}</p>
-            </div>
-            )
-          }
-        })}
+        <PublicCompliments
+          currentUser={currentUser}
+          compliments={compliments}
+          hearts={hearts}
+          handleRefresh={handleRefresh}
+        />
       </div>
       <div>
-        <form onSubmit={formik.handleSubmit} style={{ margin: "15px" }}>
-          <label htmlFor="compliment_text">
-            Write a compliment to {user.username}!
-          </label>
-          <br />
-          <textarea
-            id="compliment_text"
-            name="compliment_text"
-            onChange={formik.handleChange}
-            value={formik.values.compliment_text}
-            rows={"15"}
-            style={{ width: "50%" }}
-          />
-          <p style={{ color: "red" }}>{formik.errors.compliment_text}</p>
-          <button type="submit">Submit</button>
-        </form>
+        <NewComplimentForm
+          user={user}
+          currentUser={currentUser}
+          handleRefresh={handleRefresh}
+        />
       </div>
     </div>
   );

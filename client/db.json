@@ -142,7 +142,7 @@
       "compliment_id": 1706053806150,
       "compliment_text": "enjoy working with you!",
       "date_sent": "2024-01-23",
-      "public": false,
+      "public": true,
       "receiver": {
         "email": "test@gmail.com",
         "position": "engineer2",
@@ -154,6 +154,82 @@
         "position": "engineer1",
         "user_id": 1,
         "username": "DorahelyS"
+      }
+    },
+    {
+      "id": 1706072664477,
+      "compliment_id": 1706072664477,
+      "compliment_text": "Testing compliment A",
+      "date_sent": "2024-01-24",
+      "public": true,
+      "receiver": {
+        "email": "TEST EMAIL",
+        "position": "TEST POSITION",
+        "user_id": 4,
+        "username": "TEST TEST"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer3",
+        "user_id": 3,
+        "username": "ElijahK"
+      }
+    },
+    {
+      "id": 1706075724876,
+      "compliment_id": 1706075724876,
+      "compliment_text": "This is an example of a compliment to Test!",
+      "date_sent": "2024-01-24",
+      "public": false,
+      "receiver": {
+        "email": "TEST EMAIL",
+        "position": "TEST POSITION",
+        "user_id": 4,
+        "username": "TEST TEST"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer3",
+        "user_id": 3,
+        "username": "ElijahK"
+      }
+    },
+    {
+      "id": 1706075792447,
+      "compliment_id": 1706075792447,
+      "compliment_text": "Test compliment 1234!",
+      "date_sent": "2024-01-24",
+      "public": true,
+      "receiver": {
+        "email": "test@gmail.com",
+        "position": "engineer3",
+        "user_id": 3,
+        "username": "ElijahK"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer2",
+        "user_id": 2,
+        "username": "NickS"
+      }
+    },
+    {
+      "id": 1706081827347,
+      "compliment_id": 1706081827347,
+      "compliment_text": "Test ",
+      "date_sent": "2024-01-24",
+      "public": false,
+      "receiver": {
+        "email": "test@gmail.com",
+        "position": "engineer1",
+        "user_id": 1,
+        "username": "DorahelyS"
+      },
+      "sender": {
+        "email": "test@gmail.com",
+        "position": "engineer3",
+        "user_id": 3,
+        "username": "ElijahK"
       }
     }
   ],
@@ -190,6 +266,60 @@
         "username": "ElijahK"
       },
       "user_id": 3
+    },
+    {
+      "id": 1706083148011,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083148011,
+      "user_id": 1
+    },
+    {
+      "id": 1706083164120,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083164120,
+      "user_id": 1
+    },
+    {
+      "id": 1706083168222,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083168222,
+      "user_id": 1
+    },
+    {
+      "id": 1706083225872,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083225872,
+      "user_id": 1
+    },
+    {
+      "id": 1706083227625,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083227625,
+      "user_id": 1
+    },
+    {
+      "id": 1706083229098,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083229098,
+      "user_id": 1
+    },
+    {
+      "id": 1706083230934,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083230934,
+      "user_id": 1
+    },
+    {
+      "id": 1706083232412,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083232412,
+      "user_id": 1
+    },
+    {
+      "id": 1706083234810,
+      "compliment_id": 1706081827347,
+      "heart_id": 1706083234810,
+      "user_id": 1
     }
   ]
 }

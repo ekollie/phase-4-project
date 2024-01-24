@@ -28,16 +28,14 @@ function UsersList({ compliments, currentUser, hearts }) {
         {users.map((user) => {
           if (user.user_id != currentUser.user_id) {
             return (
-              <li>
+              <li style={{ padding: "5px" }}>
                 <UserCard
                   key={user.user_id}
                   user={user}
                   compliments={compliments}
                   currentUser={currentUser}
-                  hearts = {hearts}
-
+                  hearts={hearts}
                 />
-                <br />
               </li>
             );
           }

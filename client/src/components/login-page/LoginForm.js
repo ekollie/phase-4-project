@@ -8,13 +8,13 @@ function LoginForm() {
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Must enter a username"),
-    position: yup.string().required("Must enter a position"),
+    // position: yup.string().required("Must enter a position"),
   });
 
   const formik = useFormik({
     initialValues: {
       username: "",
-      position: "",
+      // position: "",
     },
     validationSchema: formSchema,
     onSubmit: () => {
@@ -53,16 +53,13 @@ function LoginForm() {
           value={formik.values.username}
         />
         <p style={{ color: "red" }}> {formik.errors.username}</p>
-        <label htmlFor="position">Position</label>
-        <br />
-
-        <input
+        {/* <input
           id="position"
           name="position"
           onChange={formik.handleChange}
           value={formik.values.position}
         />
-        <p style={{ color: "red" }}> {formik.errors.position}</p>
+        <p style={{ color: "red" }}> {formik.errors.position}</p> */}
         <button type="submit">Submit</button>
       </form>
     </div>

@@ -1,13 +1,27 @@
 import React from "react";
 import Compliment from "./Compliment";
 
-function ComplimentsFromYou({ compliments, hearts }) {
-  console.log(compliments);
+function ComplimentsFromYou({
+  currentUser,
+  compliments,
+  hearts,
+  handleRefresh,
+}) {
   return (
     <div>
-      {compliments.map((compliment) => {
-        return <Compliment compliment={compliment} hearts={hearts} />;
-      })}
+      <h3>Compliments from you</h3>
+      <div>
+        {compliments.map((compliment) => {
+          return (
+            <Compliment
+              currentUser={currentUser}
+              compliment={compliment}
+              hearts={hearts}
+              handleRefresh={handleRefresh}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
