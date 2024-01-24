@@ -97,3 +97,12 @@ class Hearts(db.Model, SerializerMixin):
                        '-user.compliments_received',
                        '-hearts.sender',
                        '-hearts.receiver')
+
+
+
+# if compliment.compliment_id and user.user_id{
+
+# }
+
+# if not compliment_id
+#     raise validation error

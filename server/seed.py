@@ -29,7 +29,7 @@ if __name__ == "__main__":
         compliment_1 = Compliments(
             compliment_text="test compliment 1", sender=user_1, public=True, receiver=user_2)
         compliment_2 = Compliments(
-            compliment_text="test compliment 2", sender=user_2, public=False, receiver=user_2)
+            compliment_text="test compliment 2", sender=user_2, public=False, receiver=user_3)
         compliment_3 = Compliments(
             compliment_text="test compliment 3", sender=user_1, public=True, receiver=user_2)
         compliment_4 = Compliments(
@@ -40,10 +40,9 @@ if __name__ == "__main__":
         db.session.commit()
 
         print("Creating hearts...")
-        heart_1 = Hearts(compliment_id=compliment_1.compliment_id, user=user_2)
-        heart_3 = Hearts(compliment_id=compliment_3.compliment_id, user=user_2)
+        heart_1 = Hearts(compliment_id=-1)
 
-        db.session.add_all([heart_1, heart_3])
+        db.session.add_all([heart_1])
         db.session.commit()
 
         print("Seeding complete...")

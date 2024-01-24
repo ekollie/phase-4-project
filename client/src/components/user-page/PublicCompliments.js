@@ -1,13 +1,18 @@
 import React from "react";
 import Compliment from "./Compliment";
 
-function PublicCompliments({ compliments, hearts, currentUser, handleRefresh }) {
+function PublicCompliments({
+  compliments,
+  hearts,
+  currentUser,
+  handleRefresh,
+}) {
   return (
     <div>
       <h3>Public Compliments</h3>
       <div>
         {compliments.map((compliment) => {
-          if (compliment.public) {
+          if (compliment.public == 1) {
             return (
               <Compliment
                 currentUser={currentUser}

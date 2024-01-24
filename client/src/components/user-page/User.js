@@ -22,18 +22,10 @@ function User() {
     fetch("/compliments")
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          data.filter((compliment) => {
-            return (
-              compliment.sender.user_id === currentUser.user_id &&
-              compliment.receiver.user_id === user.user_id
-            );
-          })
-        );
         setCompliments(() => {
           return data.filter((compliment) => {
             return (
-              compliment.sender.user_id === currentUser.user_id &&
+              compliment.sender.user_id === currentUser.user_id ||
               compliment.receiver.user_id === user.user_id
             );
           });

@@ -8,8 +8,10 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
 
   // Filters hearts related to this specific compliment
   const getComplimentHearts = () => {
+    console.log("hearts: ", hearts);
+    console.log("compliment: ", compliment);
     return hearts.filter(
-      (heart) => heart.compliment_id === compliment.compliment_id
+      (heart) => heart.compliment_id == compliment.compliment_id
     );
   };
 
@@ -31,11 +33,11 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
       });
     getComplimentHearts().forEach((heart) => {
       if (heart.user_id === currentUser.user_id) {
-        setLikedCompliment(true);
+        setLikedCompliment(false);
       }
     });
     setPublicToggle(compliment.public);
-  }, [refreshPage]);
+  }, []);
 
   // Toggles the public of the compliment
   const handlePublicToggle = () => {
@@ -48,39 +50,64 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
     setPublicToggle(!publicToggle);
   };
 
+  const handleClick = () => {
+    console.log(likedCompliment);
+    // setLikedCompliment(!likedCompliment);
+    handleLike();
+  };
+
   // Handles the liking or unliking of a compliment
   const handleLike = () => {
-    let complimentHeart = getComplimentHearts().find(
-      (heart) => heart.user_id === currentUser.user_id
-    );
-    setLikedCompliment(!likedCompliment);
-
+    // setRefreshPage(!refreshPage);
     if (likedCompliment) {
       // If already liked, remove the like
       let queriedHeart = getComplimentHearts().find((heart) => {
         return heart.user_id === currentUser.user_id;
       });
-      console.log(queriedHeart);
+      console.log("Deleting...");
+      console.log("getComplimentHearts: ", getComplimentHearts());
+      // console.log("queried heart: ", queriedHeart);
+      console.log("queriedHeart.id: ", queriedHeart.heart_id);
       fetch(`/hearts/${queriedHeart.heart_id}`, { method: "DELETE" })
-        .then((response) => response.ok && response.json())
+        .then((response) => {
+          if (response.ok) {
+            console.log("Setting liked compliments to false");
+            setLikedCompliment(false);
+          }
+        })
         .catch((error) => console.log("Error removing like", error));
     } else {
       // If not liked, add a like
       fetch(`/hearts`, {
         method: "POST",
         body: JSON.stringify({
-          // id: Date.now(),
           compliment_id: compliment.compliment_id,
-          // heart_id: Date.now(),
           user_id: currentUser.user_id,
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       })
-        .then((response) => response.ok && response.json())
+        .then((response) => {
+          if (response.ok) {
+            setLikedCompliment(true);
+            console.log("Setting liked compliments to true");
+            fetch("/hearts")
+              .then((response) => {
+                if (response.ok) {
+                  return response.json();
+                }
+                throw new Error("Something went wrong");
+              })
+              .then((hearts) => {
+                return setHearts(hearts);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
         .catch((error) => console.log("Error adding like", error));
     }
-    handleRefresh();
-    setRefreshPage(!refreshPage);
+    // handleRefresh();
   };
 
   // Renders the public toggle buttons if the current user is the receiver
@@ -102,9 +129,9 @@ function Compliment({ currentUser, compliment, handleRefresh }) {
           style={
             likedCompliment ? { color: "white", backgroundColor: "red" } : {}
           }
-          onClick={handleLike}
+          onClick={handleClick}
         >
-          Like
+          likedCompliment: {`${likedCompliment}`}
         </button>
       );
     }
