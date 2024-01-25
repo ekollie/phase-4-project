@@ -259,6 +259,7 @@ function Compliment({
     })
       .then((response) => {
         if (!response.ok) throw new Error("Failed to toggle public status");
+        handleRefresh();
       })
       .catch((error) => {
         console.error("Error toggling public status:", error);
