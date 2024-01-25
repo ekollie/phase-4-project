@@ -7,14 +7,14 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const formSchema = yup.object().shape({
+    email: yup.string().required("Must enter an email"),
     username: yup.string().required("Must enter a username"),
-    // position: yup.string().required("Must enter a position"),
   });
 
   const formik = useFormik({
     initialValues: {
+      email: "",
       username: "",
-      // position: "",
     },
     validationSchema: formSchema,
     onSubmit: () => {
@@ -27,7 +27,10 @@ function LoginForm() {
         })
         .then((data) => {
           data.forEach((currentUser) => {
-            if (currentUser.username === formik.values.username) {
+            if (
+              currentUser.username === formik.values.username &&
+              currentUser.email === formik.values.email
+            ) {
               navigate(`/main`, {
                 state: { currentUser },
               });
@@ -53,13 +56,13 @@ function LoginForm() {
           value={formik.values.username}
         />
         <p style={{ color: "red" }}> {formik.errors.username}</p>
-        {/* <input
-          id="position"
-          name="position"
+        <input
+          id="email"
+          name="email"
           onChange={formik.handleChange}
           value={formik.values.position}
         />
-        <p style={{ color: "red" }}> {formik.errors.position}</p> */}
+        <p style={{ color: "red" }}> {formik.errors.position}</p>
         <button type="submit">Submit</button>
       </form>
     </div>
