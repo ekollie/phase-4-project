@@ -44,14 +44,14 @@ function LoginForm() {
   });
 
   return (
-    <div>
-      <h2>Sign in</h2>
+    <div clasName="login">
       <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username"></label>
         <br />
         <input
           id="username"
           name="username"
+          placeholder="username"
           onChange={formik.handleChange}
           value={formik.values.username}
         />
@@ -59,14 +59,17 @@ function LoginForm() {
         <input
           id="email"
           name="email"
+          placeholder="email"
           onChange={formik.handleChange}
           value={formik.values.position}
         />
         <p style={{ color: "red" }}> {formik.errors.position}</p>
-        <button type="submit">Submit</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 }
 
 export default LoginForm;
+
+
