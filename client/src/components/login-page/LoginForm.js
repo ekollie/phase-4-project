@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, useFormik } from "formik";
 import * as yup from "yup";
+import '../../loginpage.css'
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -44,27 +45,32 @@ function LoginForm() {
   });
 
   return (
-    <div clasName="login">
-      <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
-        <label htmlFor="username"></label>
-        <br />
-        <input
-          id="username"
-          name="username"
-          placeholder="username"
-          onChange={formik.handleChange}
-          value={formik.values.username}
-        />
-        <p style={{ color: "red" }}> {formik.errors.username}</p>
-        <input
-          id="email"
-          name="email"
-          placeholder="email"
-          onChange={formik.handleChange}
-          value={formik.values.position}
-        />
-        <p style={{ color: "red" }}> {formik.errors.position}</p>
-        <button type="submit">Login</button>
+    <div className="login">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="input-group">
+          <input
+            id="username"
+            name="username"
+            placeholder="username"
+            onChange={formik.handleChange}
+            value={formik.values.username}
+          />
+          {formik.errors.username && <p className="error">{formik.errors.username}</p>}
+        </div>
+        <div className="input-group">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+          <p> {formik.errors.position}</p>
+          <div className= "button-container">
+            <button type="submit">Login</button>
+          </div>
+        </div>
       </form>
     </div>
   );
