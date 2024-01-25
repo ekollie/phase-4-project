@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import UsersList from "./UsersList";
+import '../../loginpage.css';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReceivedCompliments from "./ReceivedCompliments";
 import { ref } from "yup";
+
 
 function Main() {
   // Extracting the current user from the route state
@@ -56,7 +58,8 @@ function Main() {
       });
   }, [refreshPage]);
 
-  return (
+
+return (
     <div>
       {/* Displaying the current user's username and a Sign Out button */}
       <h1> Hello, {currentUser.username}</h1>
