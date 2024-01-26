@@ -10,7 +10,7 @@ function ComplimentsFromYou({
   return (
     <div className="chats">
       <h3 style={{ color: "white", margin: "15px" }}>
-        Your compliments to {compliments[0]?.receiver?.username}
+        Your compliments to {compliments[1]?.receiver?.username}
       </h3>
       <div>
         {compliments.map((compliment) => {

@@ -26,7 +26,7 @@ function User() {
         setCompliments(() => {
           return data.filter((compliment) => {
             return (
-              compliment.sender.user_id === currentUser.user_id ||
+              // compliment.sender.user_id === currentUser.user_id ||
               compliment.receiver.user_id === user.user_id
             );
           });
