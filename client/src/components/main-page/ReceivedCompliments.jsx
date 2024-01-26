@@ -1,18 +1,17 @@
 import React from "react";
-import Compliment from "./Compliment";
+import Compliment from "../user-page/Compliment";
 
-function PublicCompliments({
+function ReceivedCompliments({
   compliments,
-  hearts,
   currentUser,
+  hearts,
   handleRefresh,
 }) {
   return (
-    <div>
-      <h3>Public Compliments</h3>
+    <div className="messages">
       <div>
         {compliments.map((compliment) => {
-          if (compliment.public == 1) {
+          if (compliment.receiver.user_id === currentUser.user_id) {
             return (
               <Compliment
                 currentUser={currentUser}
@@ -28,4 +27,4 @@ function PublicCompliments({
   );
 }
 
-export default PublicCompliments;
+export default ReceivedCompliments;

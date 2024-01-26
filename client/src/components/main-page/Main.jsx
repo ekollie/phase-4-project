@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import UsersList from "./UsersList";
-import '../../loginpage.css';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReceivedCompliments from "./ReceivedCompliments";
+import SideBar from "./SideBar";
+import Input from "./Input";
 import { ref } from "yup";
-
 
 function Main() {
   // Extracting the current user from the route state
@@ -58,32 +58,27 @@ function Main() {
       });
   }, [refreshPage]);
 
+  return (
+    <div className="home">
+      <div className="container">
+        {/* <h1> Hello, {currentUser.username}</h1> */}
+        {/* <button onClick={() => navigate(`/`)}>Sign Out</button> */}
 
-return (
-    <div>
-      {/* Displaying the current user's username and a Sign Out button */}
-      <h1> Hello, {currentUser.username}</h1>
-      <button onClick={() => navigate(`/`)}>Sign Out</button>
-
-      {/* Displaying the UsersList component */}
-      <div>
-        <br />
-        <UsersList
+        <SideBar
           compliments={compliments}
           currentUser={currentUser}
           hearts={hearts}
         />
-        <br />
-      </div>
-
-      {/* Displaying the ReceivedCompliments component */}
-      <div>
-        <ReceivedCompliments
-          compliments={compliments}
-          currentUser={currentUser}
-          hearts={hearts}
-          handleRefresh={handleRefresh}
-        />
+        <div className="chat">
+          <div className="chatInfo">Received Compliments</div>
+          <ReceivedCompliments
+            compliments={compliments}
+            currentUser={currentUser}
+            hearts={hearts}
+            handleRefresh={handleRefresh}
+          />
+          <Input currentUser={currentUser} />
+        </div>
       </div>
     </div>
   );

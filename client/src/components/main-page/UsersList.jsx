@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserCard from "./UserCard";
 import { ref } from "yup";
+import NavBar from "./NavBar";
 
 function UsersList({ compliments, currentUser, hearts }) {
   const [users, setUsers] = useState([]);
@@ -23,24 +24,20 @@ function UsersList({ compliments, currentUser, hearts }) {
   }, [refreshPage]);
 
   return (
-    <div>
-      <ul>
-        {users.map((user) => {
-          if (user.user_id != currentUser.user_id) {
-            return (
-              <li style={{ padding: "5px" }}>
-                <UserCard
-                  key={user.user_id}
-                  user={user}
-                  compliments={compliments}
-                  currentUser={currentUser}
-                  hearts={hearts}
-                />
-              </li>
-            );
-          }
-        })}
-      </ul>
+    <div className="chats">
+      {users.map((user) => {
+        if (user.user_id != currentUser.user_id) {
+          return (
+            <UserCard
+              key={user.user_id}
+              user={user}
+              compliments={compliments}
+              currentUser={currentUser}
+              hearts={hearts}
+            />
+          );
+        }
+      })}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import Compliment from "./Compliment";
+import UserCompliment from "./UserCompliment";
 
 function ComplimentsFromYou({
   currentUser,
@@ -8,13 +8,15 @@ function ComplimentsFromYou({
   handleRefresh,
 }) {
   return (
-    <div>
-      <h3>Compliments from you</h3>
+    <div className="chats">
+      <h3 style={{ color: "white", margin: "15px" }}>
+        Your compliments to {compliments[0]?.receiver?.username}
+      </h3>
       <div>
         {compliments.map((compliment) => {
           if (compliment.sender.user_id === currentUser.user_id) {
             return (
-              <Compliment
+              <UserCompliment
                 currentUser={currentUser}
                 compliment={compliment}
                 hearts={hearts}
