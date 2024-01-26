@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ComplimentsFromYou from "./ComplimentsFromYou";
 import PublicCompliments from "./PublicCompliments";
 import NewComplimentForm from "./NewComplimentForm";
+import UserSideBar from "../user-page/UserSideBar";
 
 function User() {
   const { state } = useLocation();
@@ -33,45 +34,74 @@ function User() {
       });
   }, [refreshPage]);
 
+  // return (
+  //   <div>
+  //     <div>
+  //       <h1>{user.username}</h1>
+  //       <button
+  //         onClick={() =>
+  //           navigate(`/main`, {
+  //             state: { currentUser },
+  //           })
+  //         }
+  //       >
+  //         Back
+  //       </button>
+  //       <br />
+  //       <p>Position: {user.position}</p>
+  //       <p>Email: {user.email}</p>
+  //     </div>
+  //     <div>
+  //       <ComplimentsFromYou
+  //         currentUser={currentUser}
+  //         compliments={compliments}
+  //         hearts={hearts}
+  //         handleRefresh={handleRefresh}
+  //       />
+  //     </div>
+  //     <div>
+  //       <PublicCompliments
+  //         currentUser={currentUser}
+  //         compliments={compliments}
+  //         hearts={hearts}
+  //         handleRefresh={handleRefresh}
+  //       />
+  //     </div>
+  //     <div>
+  //       <NewComplimentForm
+  // user={user}
+  // currentUser={currentUser}
+  // handleRefresh={handleRefresh}
+  //       />
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div>
-      <div>
-        <h1>{user.username}</h1>
-        <button
-          onClick={() =>
-            navigate(`/main`, {
-              state: { currentUser },
-            })
-          }
-        >
-          Back
-        </button>
-        <br />
-        <p>Position: {user.position}</p>
-        <p>Email: {user.email}</p>
-      </div>
-      <div>
-        <ComplimentsFromYou
-          currentUser={currentUser}
+    <div className="home">
+      <div className="container">
+        {/* <h1> Hello, {currentUser.username}</h1> */}
+        {/* <button onClick={() => navigate(`/`)}>Sign Out</button> */}
+
+        <UserSideBar
           compliments={compliments}
-          hearts={hearts}
-          handleRefresh={handleRefresh}
-        />
-      </div>
-      <div>
-        <PublicCompliments
           currentUser={currentUser}
-          compliments={compliments}
           hearts={hearts}
-          handleRefresh={handleRefresh}
         />
-      </div>
-      <div>
-        <NewComplimentForm
-          user={user}
-          currentUser={currentUser}
-          handleRefresh={handleRefresh}
-        />
+        <div className="chat">
+          <div className="chatInfo">Public Compliments</div>
+          <PublicCompliments
+            compliments={compliments}
+            currentUser={currentUser}
+            hearts={hearts}
+            handleRefresh={handleRefresh}
+          />
+          <NewComplimentForm
+            user={user}
+            currentUser={currentUser}
+            handleRefresh={handleRefresh}
+          />
+        </div>
       </div>
     </div>
   );

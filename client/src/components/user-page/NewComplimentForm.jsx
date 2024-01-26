@@ -57,24 +57,25 @@ function NewComplimentForm({ user, currentUser, handleRefresh }) {
   });
 
   return (
-    <div>
-      {/* Form for submitting new compliments */}
+    <div className="input">
       <form onSubmit={formik.handleSubmit} style={{ margin: "15px" }}>
-        <label htmlFor="compliment_text">
+        {/* <label htmlFor="compliment_text">
           Write a compliment to {user.username}!
-        </label>
+        </label> */}
         <br />
-        <textarea
+        <input
           id="compliment_text"
           name="compliment_text"
+          type="text"
+          placeholder="Send something nice!"
           onChange={formik.handleChange}
           value={formik.values.compliment_text}
-          rows="15"
-          style={{ width: "50%" }}
         />
         {/* Displaying form validation error */}
-        <p style={{ color: "red" }}>{formik.errors.compliment_text}</p>
-        <button type="submit">Submit</button>
+        {/* <p style={{ color: "red" }}>{formik.errors.compliment_text}</p> */}
+        <div className="send">
+          <button type="submit">Send</button>
+        </div>
       </form>
     </div>
   );

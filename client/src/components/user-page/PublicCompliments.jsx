@@ -8,8 +8,7 @@ function PublicCompliments({
   handleRefresh,
 }) {
   return (
-    <div>
-      <h3>Public Compliments</h3>
+    <div className="messages">
       <div>
         {compliments.map((compliment) => {
           if (compliment.public == 1) {

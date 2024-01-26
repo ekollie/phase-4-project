@@ -145,7 +145,7 @@ import React, { useEffect, useState } from "react";
 // }
 
 // POST REFACTOR
-function Compliment({
+function UserCompliment({
   currentUser,
   compliment: initialCompliment,
   handleRefresh,
@@ -311,22 +311,23 @@ function Compliment({
 
   return (
     <div
+      style={{ margin: "15px" }}
       className={`message ${
         compliment.sender.user_id === currentUser.user_id && "owner"
       }`}
     >
-      <div className="messageContent">
+      <div className="userChat">
+        <span>{compliment.date_sent}</span>
         <p>{compliment.compliment_text}</p>
       </div>
-      <div className="messageInfo">
+      <div className="userChatInfo">
         {compliment.sender.user_id !== currentUser.user_id &&
           renderLikeButton()}
         {compliment.receiver.user_id === currentUser.user_id &&
           renderPublicToggleButton()}
       </div>
-      <p>{compliment.date_sent}</p>
     </div>
   );
 }
 
-export default Compliment;
+export default UserCompliment;

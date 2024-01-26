@@ -7,7 +7,6 @@ function SideBar({ compliments, currentUser, hearts }) {
   return (
     <div className="sidebar">
       <NavBar currentUser={currentUser} />
-      <Search currentUser={currentUser}/>
       <UsersList
         compliments={compliments}
         currentUser={currentUser}

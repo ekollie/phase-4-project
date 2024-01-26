@@ -8,7 +8,7 @@ function UserCard({ currentUser, user, hearts }) {
       <a
         onClick={() =>
           navigate(`/users/${user.user_id}`, {
-            state: { currentUser, user, hearts },
+            state: { currentUser, user, hearts},
           })
         }
       >

@@ -77,7 +77,7 @@ function Main() {
             hearts={hearts}
             handleRefresh={handleRefresh}
           />
-          <Input />
+          <Input currentUser={currentUser} />
         </div>
       </div>
     </div>
