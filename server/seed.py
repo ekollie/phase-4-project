@@ -27,16 +27,44 @@ if __name__ == "__main__":
 
         print("Creating complments...")
         compliment_1 = Compliments(
-            compliment_text="test compliment 1", sender=user_1, public=True, receiver=user_2)
+            compliment_text="Your compassion is like a soothing balm, offering solace to those in need.", sender=user_1, public=True, receiver=user_2)
         compliment_2 = Compliments(
-            compliment_text="test compliment 2", sender=user_2, public=False, receiver=user_3)
+            compliment_text="The radiance of your smile has the uncanny ability to illuminate even the gloomiest of days.", sender=user_2, public=False, receiver=user_3)
         compliment_3 = Compliments(
-            compliment_text="test compliment 3", sender=user_1, public=True, receiver=user_2)
+            compliment_text="Your optimism is an infectious force, transforming ordinary moments into extraordinary memories.", sender=user_3, public=False, receiver=user_1)
         compliment_4 = Compliments(
-            compliment_text="test compliment 4", sender=user_4, public=False, receiver=user_2)
+            compliment_text="Your boundless creativity crafts a tapestry of brilliance, leaving us in awe of your ingenuity.", sender=user_1, public=True, receiver=user_3)
+        compliment_5 = Compliments(
+            compliment_text="Intelligence dances in your every gesture, a silent symphony that captivates the minds of those around you.", sender=user_2, public=False, receiver=user_1)
+        compliment_6 = Compliments(
+            compliment_text="The tapestry of your humor weaves joy into the fabric of our days, creating a mosaic of laughter.", sender=user_3, public=True, receiver=user_2)
+        compliment_7 = Compliments(
+            compliment_text="Generosity flows from you like a gentle stream, nurturing the hearts fortunate enough to cross your path.", sender=user_1, public=False, receiver=user_2)
+        compliment_8 = Compliments(
+            compliment_text="Your resilience in the face of adversity is a testament to the indomitable spirit within you.", sender=user_2, public=True, receiver=user_3)
+        compliment_9 = Compliments(
+            compliment_text="Your zest for life paints each day with vibrant strokes, transforming the mundane into a masterpiece.", sender=user_3, public=False, receiver=user_1)
+        compliment_10 = Compliments(
+            compliment_text="The wellspring of empathy within you creates an oasis of understanding in a world parched for connection.", sender=user_1, public=True, receiver=user_3)
+        compliment_11 = Compliments(
+            compliment_text="Your perspective is a kaleidoscope, refracting brilliance into every conversation and encounter.", sender=user_2, public=False, receiver=user_1)
+        compliment_12 = Compliments(
+            compliment_text="The metamorphosis of your personal growth is a captivating journey, evolving into a tapestry of strength and wisdom.", sender=user_4, public=True, receiver=user_2)
 
-        db.session.add_all([compliment_1, compliment_2,
-                           compliment_3, compliment_4])
+        db.session.add_all([
+            compliment_1, 
+            compliment_2,
+            compliment_3, 
+            compliment_4,
+            compliment_5,
+            compliment_6,
+            compliment_7,
+            compliment_8,
+            compliment_9,
+            compliment_10,
+            compliment_11,
+            compliment_12,
+                        ])
         db.session.commit()
 
         print("Creating hearts...")
