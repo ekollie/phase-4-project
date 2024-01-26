@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./style.scss";
 import App from "./components/App";
 import {
   createBrowserRouter,

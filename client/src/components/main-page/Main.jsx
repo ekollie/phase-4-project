@@ -3,6 +3,8 @@ import UsersList from "./UsersList";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReceivedCompliments from "./ReceivedCompliments";
+import SideBar from "./SideBar";
+import Input from "./Input";
 import { ref } from "yup";
 
 function Main() {
@@ -57,30 +59,26 @@ function Main() {
   }, [refreshPage]);
 
   return (
-    <div>
-      {/* Displaying the current user's username and a Sign Out button */}
-      <h1> Hello, {currentUser.username}</h1>
-      <button onClick={() => navigate(`/`)}>Sign Out</button>
+    <div className="home">
+      <div className="container">
+        {/* <h1> Hello, {currentUser.username}</h1> */}
+        {/* <button onClick={() => navigate(`/`)}>Sign Out</button> */}
 
-      {/* Displaying the UsersList component */}
-      <div>
-        <br />
-        <UsersList
+        <SideBar
           compliments={compliments}
           currentUser={currentUser}
           hearts={hearts}
         />
-        <br />
-      </div>
-
-      {/* Displaying the ReceivedCompliments component */}
-      <div>
-        <ReceivedCompliments
-          compliments={compliments}
-          currentUser={currentUser}
-          hearts={hearts}
-          handleRefresh={handleRefresh}
-        />
+        <div className="chat">
+          <div className="chatInfo">Received Compliments</div>
+          <ReceivedCompliments
+            compliments={compliments}
+            currentUser={currentUser}
+            hearts={hearts}
+            handleRefresh={handleRefresh}
+          />
+          <Input />
+        </div>
       </div>
     </div>
   );

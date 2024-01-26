@@ -5,18 +5,20 @@ function UserCard({ currentUser, user, hearts }) {
   const navigate = useNavigate();
   return (
     <div>
-      <span>Username: {user.username}</span>
-      <br></br>
-      <span>Position: {user.position}</span>
-      <button
+      <a
         onClick={() =>
           navigate(`/users/${user.user_id}`, {
             state: { currentUser, user, hearts },
           })
         }
       >
-        view profile
-      </button>
+        <div className="userChat">
+          <div className="userChatInfo">
+            <span>{user.username}</span>
+            <p>Position: {user.position}</p>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }

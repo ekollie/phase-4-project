@@ -269,11 +269,26 @@ function Compliment({
   };
 
   const renderLikeButton = () => (
-    <button
-      style={likedCompliment ? { color: "white", backgroundColor: "red" } : {}}
-      onClick={handleLike}
-    >
-      {likedCompliment ? "Unlike" : "Like"}
+    <button id="heart" onClick={handleLike}>
+      {likedCompliment ? (
+        <p>
+          Hearts:
+          {
+            hearts.filter(
+              (heart) => heart.compliment_id === compliment.compliment_id
+            ).length
+          }
+        </p>
+      ) : (
+        <p>
+          Hearts:
+          {
+            hearts.filter(
+              (heart) => heart.compliment_id === compliment.compliment_id
+            ).length
+          }
+        </p>
+      )}
     </button>
   );
 
@@ -284,18 +299,17 @@ function Compliment({
   );
 
   return (
-    <div>
-      <span>| {compliment.date_sent} |</span>
-      <span>| {compliment.compliment_text} |</span>
-      <span>
-        | Hearts:
-        {
-          hearts.filter(
-            (heart) => heart.compliment_id === compliment.compliment_id
-          ).length
-        }
-        |
-      </span>
+    <div
+      className={`message ${
+        compliment.sender.user_id === currentUser.user_id && "owner"
+      }`}
+    >
+      <div className="messageContent">
+        <p>{compliment.compliment_text}</p>
+      </div>
+      <div className="messageInfo">
+        <p>{compliment.date_sent}</p>
+      </div>
       {compliment.sender.user_id !== currentUser.user_id && renderLikeButton()}
       {compliment.receiver.user_id === currentUser.user_id &&
         renderPublicToggleButton()}

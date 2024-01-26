@@ -8,8 +8,7 @@ function ReceivedCompliments({
   handleRefresh,
 }) {
   return (
-    <div>
-      <h3>Received compliments</h3>
+    <div className="messages">
       <div>
         {compliments.map((compliment) => {
           if (compliment.receiver.user_id === currentUser.user_id) {
